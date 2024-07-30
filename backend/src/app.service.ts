@@ -10,14 +10,19 @@ export class AppService {
   }
 
   async getTrucks(params): Promise<any> {
-    const result = prisma.foodTrucks.findMany({
-      take: Number(params.take),
-      skip: Number(params.skip),
+    const take = Number(params.take)
+    const skip = Number(params.skip)
+
+    const [count, list] = await prisma.$transaction([
+      prisma.foodTrucks.count(),
+      prisma.foodTrucks.findMany({
+      take: take,
+      skip: skip,
       orderBy: {
         id: 'asc'
       }
     })
-
-    return result
-  }
+  ])
+  return {totalPage: Math.floor(count / take), list: list}
+}
 }
