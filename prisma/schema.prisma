@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model FoodTrucks {
+  id                      Int          @id @default(autoincrement())
+  locationId              Int          @unique
+  applicant               String
+  facilityType            FacilityType
+  cnn                     Int
+  locationDescription     String
+  address                 String
+  blocklot                Int
+  block                   Int
+  lot                     Int
+  permit                  String
+  status                  Status
+  foodItems               String
+  x                       Float
+  y                       Float
+  latitude                Decimal
+  longitude               Decimal
+  openDays                Json
+  openTime                Json
+  approved_at             DateTime
+  received                DateTime
+  priorPermit             Int
+  expirationAt            DateTime
+  firePreventionDistricts Int
+  policeDistricts         Int
+  supervisorDistricts     Int
+  zipCodes                Int
+  oldNeighborhoods        Int
+}
+
+enum Status {
+  APPROVED
+  REQUESTED
+  EXPIRED
+  SUSPEND
+  ONLINE
+}
+
+enum FacilityType {
+  TRUCK
+  PUSH_CART
+}
