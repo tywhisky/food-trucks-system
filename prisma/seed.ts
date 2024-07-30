@@ -1,11 +1,9 @@
-import { FacilityType, PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as csv from 'fast-csv';
 
 const prisma = new PrismaClient();
-
-const csvData = [];
 
 function expandDayRange(dayString) {
   const dayRanges = dayString.split('/');
