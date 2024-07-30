@@ -14,34 +14,33 @@ datasource db {
 }
 
 model FoodTrucks {
-  id                      Int          @id @default(autoincrement())
-  locationId              Int          @unique
-  applicant               String
-  facilityType            FacilityType
-  cnn                     Int
-  locationDescription     String
-  address                 String
-  blocklot                Int
-  block                   Int
-  lot                     Int
-  permit                  String
-  status                  Status
-  foodItems               String
-  x                       Float
-  y                       Float
-  latitude                Decimal
-  longitude               Decimal
-  openDays                Json
-  openTime                Json
-  approved_at             DateTime
-  received                DateTime
-  priorPermit             Int
-  expirationAt            DateTime
-  firePreventionDistricts Int
-  policeDistricts         Int
-  supervisorDistricts     Int
-  zipCodes                Int
-  oldNeighborhoods        Int
+  id                      Int           @id @default(autoincrement())
+  locationId              Int?
+  applicant               String?
+  facilityType            FacilityType?
+  cnn                     Int?
+  locationDescription     String?
+  address                 String?
+  blocklot                Int?
+  block                   Int?
+  lot                     Int?
+  permit                  String?
+  status                  Status?
+  foodItems               String?
+  x                       Float?
+  y                       Float?
+  latitude                Decimal?
+  longitude               Decimal?
+  openDaysTime            Json?
+  approved_at             DateTime?
+  received                DateTime?
+  priorPermit             Int?
+  expirationAt            DateTime?
+  firePreventionDistricts Int?
+  policeDistricts         Int?
+  supervisorDistricts     Int?
+  zipCodes                Int?
+  oldNeighborhoods        Int?
 }
 
 enum Status {
@@ -50,6 +49,7 @@ enum Status {
   EXPIRED
   SUSPEND
   ONLINE
+  ISSUED
 }
 
 enum FacilityType {
