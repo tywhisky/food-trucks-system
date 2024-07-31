@@ -1,6 +1,11 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 
+export interface TrucksQueryType {
+  take: string;
+  skip: string;
+}
+
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
@@ -11,7 +16,7 @@ export class AppController {
   }
 
   @Get("/trucks")
-  getTrucks(@Query() query): any {
+  getTrucks(@Query() query: TrucksQueryType): any {
     return this.appService.getTrucks(query);
   }
 }

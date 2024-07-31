@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=food_trucks
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/food_trucks
+    depends_on:
+      - postgres
+    command: >
+      sh -c "
+        npx prisma migrate deploy &&
+        npx prisma db seed &&
+        pnpm run start
+      "
+    ports:
+      - 3001:3001
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
+

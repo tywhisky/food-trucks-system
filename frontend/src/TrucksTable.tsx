@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 import type { InputRef, TableColumnsType, TableColumnType, TableProps } from 'antd';
-import { Button, Input, Space, Table } from 'antd';
+import { Button, Input, Space, Table, Tag } from 'antd';
 import type { FilterDropdownProps } from 'antd/es/table/interface';
 import Highlighter from 'react-highlight-words';
 import axios from 'axios';
