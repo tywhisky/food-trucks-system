@@ -9,6 +9,7 @@ WORKDIR /usr/src/app
 # Copy the dependency definitions.
 COPY package*.json ./
 COPY pnpm-lock.yaml ./
+COPY prisma ./prisma/
 
 # Install dependencies.
 RUN npm install -g pnpm && pnpm install
