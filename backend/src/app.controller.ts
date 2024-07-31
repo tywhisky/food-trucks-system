@@ -12,7 +12,6 @@ export class AppController {
 
   @Get("/trucks")
   getTrucks(@Query() query): any {
-    console.log(query)
-      return this.appService.getTrucks(query);
+    return this.appService.getTrucks(query);
   }
 }

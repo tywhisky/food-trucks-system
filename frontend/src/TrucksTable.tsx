@@ -5,7 +5,7 @@ import { Button, Input, Space, Table } from 'antd';
 import type { FilterDropdownProps } from 'antd/es/table/interface';
 import Highlighter from 'react-highlight-words';
 import axios from 'axios';
-import { useGoogleMaps } from "react-hook-google-maps";
+import TrucksMap from './Map';
 
 interface DataType {
   latitude: number;
@@ -24,24 +24,19 @@ type DataIndex = keyof DataType;
 const TrucksTable: React.FC = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<any>(null);
-  const [take, setTake] = useState<Number>(500);
-  const [skip, setSkip] = useState<Number>(0);
 
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef<InputRef>(null);
 
-  const [uluru, setUluru] = useState({ lat: -25.344, lng: 131.036 })
+  const [postion, setPosition] = useState({ lat: -25.344, lng: 131.036 })
 
   useEffect(() => {
-    axios.get(`/trucks?take=${take}&skip=${skip}`)
+    axios.get(`/trucks?take=${500}&skip=${0}`)
       .then((res) => {
         setLoading(false)
         setData(res.data.list)
-        console.log(res.data)
       })
-
   }, []);
 
   const handleSearch = (
@@ -190,25 +185,14 @@ const TrucksTable: React.FC = () => {
     }
   ];
 
-
   const findInMap = (record: DataType) => {
-    setUluru({ lat: Number(record.latitude), lng: Number(record.longitude) })
-  }
-  const { ref, map, google } = useGoogleMaps(
-    "AIzaSyC4Z5Qz97EWcoCczNn2IcYvaYG0L9pe6Rk",
-    {
-      zoom: 4,
-      center: uluru,
-    },
-  );
-  if (map) {
-    new google.maps.Marker({ position: uluru, map });
+    setPosition({ lat: Number(record.latitude), lng: Number(record.longitude) })
   }
 
   return (
-    <div className=''>
-      <div className='flex py-4'>
-        <div className='justify-center' ref={ref} style={{ width: 1000, height: 500 }} />
+    <div>
+      <div className='h-96 py-4'>
+        <TrucksMap position={postion}/>
       </div>
       <Table rowKey={(record) => Number(record.locationId)} {...tableProps} scroll={{ y: 500 }} columns={columns} dataSource={data} >
       </Table>
